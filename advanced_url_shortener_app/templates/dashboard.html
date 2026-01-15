@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+</head>
+<body style="font-family: Arial; padding: 40px;">
+
+    <h2>Welcome, {{ current_user.username }}</h2>
+
+    <form method="POST">
+        <input type="text" name="url" placeholder="Enter URL to shorten" size="50">
+        <button type="submit">Shorten URL</button>
+    </form>
+
+    {% if error %}
+        <p style="color:red;">{{ error }}</p>
+    {% endif %}
+
+    {% if short_url %}
+        <p>
+            Short URL:
+            <a href="{{ short_url }}">{{ short_url }}</a>
+        </p>
+    {% endif %}
+
+    <h3>Your Shortened URLs</h3>
+
+    {% if urls %}
+        <ul>
+            {% for item in urls %}
+                <li>
+                    {{ item.original_url }} →
+                    <a href="/{{ item.short_code }}">
+                        {{ request.host_url }}{{ item.short_code }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No URLs yet.</p>
+    {% endif %}
+
+    <br>
+    <a href="/logout">Logout</a>
+
+</body>
+</html>
