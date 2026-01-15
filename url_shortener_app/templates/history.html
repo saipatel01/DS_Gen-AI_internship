@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>URL History</title>
+</head>
+<body style="font-family: Arial; padding: 40px;">
+
+    <h2>URL History</h2>
+
+    {% if urls %}
+        <ul>
+            {% for item in urls %}
+                <li>
+                    {{ item.original_url }} →
+                    <a href="/{{ item.short_code }}">
+                        {{ request.host_url }}{{ item.short_code }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No URLs found.</p>
+    {% endif %}
+
+    <br>
+    <a href="/">Back to Home</a>
+
+</body>
+</html>
